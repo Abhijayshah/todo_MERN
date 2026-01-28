@@ -17,7 +17,11 @@ export default function Login() {
       login(response.data.token);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      if (err.response && err.response.status === 404) {
+        setError('Server not found (404). Please check your API configuration.');
+      } else {
+        setError(err.response?.data?.message || 'Login failed');
+      }
     }
   };
 
