@@ -1,12 +1,11 @@
 {
   "name": "todo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MERN Todo App",
   "scripts": {
     "install-all": "npm install --prefix client && npm install --prefix server",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "build": "npm run build --prefix client && rm -rf server/public && mkdir -p server/public && cp -r client/dist/* server/public/",
+    "build": "npm install && npm install --prefix client && npm install --prefix server && npm run build --prefix client && rm -rf server/public && mkdir -p server/public && cp -r client/dist/* server/public/",
     "start": "npm start --prefix server"
   },
   "keywords": [],
