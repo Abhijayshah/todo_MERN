@@ -32,11 +32,19 @@ app.use('/api/todos', todoRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../public')));
+  const publicPath = path.join(__dirname, '../public');
+  
+  if (fs.existsSync(path.join(publicPath, 'index.html'))) {
+    app.use(express.static(publicPath));
 
-  app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
-  });
+    app.get(/(.*)/, (req, res) => {
+      res.sendFile(path.resolve(publicPath, 'index.html'));
+    });
+  } else {
+    app.get('/', (req, res) => {
+      res.send('API is running successfully');
+    });
+  }
 }
 
 app.listen(PORT, () => {
